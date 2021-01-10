@@ -1,4 +1,4 @@
-#web-task
+# web-task
 This repository has a Landing Page and an image Loader.
 
 ## Landing Page
