@@ -2,16 +2,26 @@ import React from "react";
 import LazyImage from "./LazyImage";
 
 export default function App() {
+  const [data, setData] = React.useState();
+  const url = "https://jsonplaceholder.typicode.com/photos";
+
+  React.useEffect(() => {
+    fetchImageData();
+    console.log(data[0].url);
+  }, []);
+
+  const fetchImageData = async () => {
+    const response = await fetch(url);
+    const jsonData = await response.json();
+    setData(jsonData);
+  };
+
   return (
     <div className="App">
       <h1>Images Loader</h1>
       <div className="images">
-        {[...Array(1000).keys()].map(i => (
-          <LazyImage
-            key={i}
-            src={`https://picsum.photos/1000/1000?random=${i}`}
-            alt={`Random image ${i}`}
-          />
+        {data.map(image => (
+          <LazyImage key={image.id} src={image.url} alt={image.title} />
         ))}
       </div>
     </div>
